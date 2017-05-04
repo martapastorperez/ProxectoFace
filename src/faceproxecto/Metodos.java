@@ -1,9 +1,9 @@
-
 package faceproxecto;
 
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
+import facebook4j.Group;
 import facebook4j.Post;
 import facebook4j.PostUpdate;
 import facebook4j.ResponseList;
@@ -14,14 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 public class Metodos {
-    
+
     String mensaje;
     static String foto;
-   static Facebook facebook;
-    
-     public static void autorizar() {
+    static Facebook facebook;
+
+    public static void autorizar() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthAppId("1885158391756593")
@@ -29,35 +28,24 @@ public class Metodos {
                 .setOAuthAccessToken("EAAayiqRJNzEBAIUVYUOl4PEy8fecYBnRPdSINfpt8Nypyd4xx9Dcya8aBNqG034wCnCUmkwwXtcQlj4TkZACxj7dQBFDUyqs3EZAqDC7yNFlaO1wGOIkrbkS14juOXPFkq3FmXFL4BCVZCgU54bVJZAxDoe9dXIZD")
                 .setOAuthPermissions("email,publish_stream,publish_actions,user_likes,manage_pages,read_stream");
         FacebookFactory ff = new FacebookFactory(cb.build());
-    facebook = ff.getInstance();
-
-        
+        facebook = ff.getInstance();
 
     }
-     
-     /**
-      * Para publicar un mensaje
-     * @throws facebook4j.FacebookException
-      */
-     public static void publicarMensaje() throws FacebookException{
-         facebook.postStatusMessage(JOptionPane.showInputDialog("Inserta tu mensaje:"));
-         
-     }
-     
 
-     
-     public static void publicarComentario(){
+    /**
+     * Para publicar un mensaje
+     *
+     * @throws facebook4j.FacebookException
+     */
+    public static void publicarMensaje() throws FacebookException {
+        facebook.postStatusMessage(JOptionPane.showInputDialog("Inserta tu mensaje:"));
+
+    }
+
+    public static void publicarImagen() {
+        PostUpdate post = null;
         try {
-            facebook.commentPhoto(foto, JOptionPane.showInputDialog("Comenta en la foto:"));
-        } catch (FacebookException ex) {
-            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     }
-     
-     public static void publicarImagen(){
-         PostUpdate post=null;
-        try {
-           post = new PostUpdate(new URL("http://facebook4j.org"))
+            post = new PostUpdate(new URL("http://facebook4j.org"))
                     .picture(new URL("http://facebook4j.org/images/hero.png"))
                     .name("Facebook4J - A Java library for the Facebook Graph API")
                     .caption("facebook4j.org")
@@ -70,13 +58,41 @@ public class Metodos {
         } catch (FacebookException ex) {
             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
         }
-     }
-     
-     public static void buscar(){
+    }
+
+  
+
+    public static void comentarFoto( ) {
+
         try {
-            ResponseList<Post> results = facebook.searchPosts(JOptionPane.showInputDialog("Palabra por la que quieres buscar: "));
+
+            facebook.commentPhoto(" ", JOptionPane.showInputDialog("¿Que quieres comentar en la foto? "));
+
         } catch (FacebookException ex) {
+
             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-     }
+    }
+
+    public static void buscar() {
+
+        try {
+
+           
+            ResponseList<Post> results = facebook.searchPosts(JOptionPane.showInputDialog("Palabra por la que quieres buscar: "));
+       
+
+            for (int i = 0; i < results.size(); i++) {
+                System.out.println(results.get(i));
+            }
+
+        } catch (FacebookException ex) {
+
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
 }

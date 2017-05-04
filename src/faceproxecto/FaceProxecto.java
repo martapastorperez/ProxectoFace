@@ -38,7 +38,7 @@ public class FaceProxecto {
             case 3:
                 Metodos.buscar();
             case 4:
-                Metodos.publicarComentario();
+                Metodos.comentarFoto();
             case 5:
                 System.exit(0);
         
