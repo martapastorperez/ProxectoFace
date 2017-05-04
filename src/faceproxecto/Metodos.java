@@ -42,6 +42,9 @@ public class Metodos {
 
     }
 
+    /**
+     * para publicar una imagen con un enlace
+     */
     public static void publicarImagen() {
         PostUpdate post = null;
         try {
@@ -61,7 +64,9 @@ public class Metodos {
     }
 
   
-
+    /**
+     * comentar en fotos
+     */
     public static void comentarFoto( ) {
 
         try {
@@ -74,25 +79,20 @@ public class Metodos {
 
         }
     }
-
+    
+    /**
+     * metodo para buscar
+     */
     public static void buscar() {
 
         try {
-
-           
             ResponseList<Post> results = facebook.searchPosts(JOptionPane.showInputDialog("Palabra por la que quieres buscar: "));
-       
-
             for (int i = 0; i < results.size(); i++) {
                 System.out.println(results.get(i));
             }
-
         } catch (FacebookException ex) {
-
             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-
     }
-
 }
